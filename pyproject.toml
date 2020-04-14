@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "fastapi-demo"
+version = "0.1.0"
+description = ""
+authors = ["Andrey S <skvortsov@mail.ru>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.54.1"
+starlette = "^0.13.2"
+psycopg2 = "^2.8.5"
+sqlalchemy = "^1.3.16"
+fastapi-sqlalchemy = { git = "https://github.com/mfreeborn/fastapi-sqlalchemy", branch = "master" }
+sqlalchemy_mixins = "^1.2.1"
+uvicorn = "^0.11.3"
+itsdangerous = "^1.1.0"
+jinja2 = "^2.11.2"
+httpx = "^0.12.1"
+alembic = "^1.4.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

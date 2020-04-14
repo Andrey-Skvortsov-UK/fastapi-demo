@@ -1,9 +1,7 @@
-from pydantic import BaseModel
 from pydantic import BaseModel, Field
 
 
 class User(BaseModel):
-    id: int
     first_name: str
     last_name: str = None
     age:  int = Field(
@@ -18,5 +16,9 @@ class User(BaseModel):
         orm_mode = True
 
 
-class AnyUser(User):
+class UserWithID(User):
+    id: int
+
+
+class AnyUserWithID(UserWithID):
     age: int

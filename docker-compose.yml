@@ -2,14 +2,18 @@ version: "3"
 
 services:
   db:
-    image: postgres:11
-    container_name: postgres11
+    image: postgres:latest
+    container_name: postgres
+    expose:
+      - "5433" # Publishes 5433 to other containers but NOT to host machine
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=fastapi
+    command: -p 5433
+
   web:
     build: .
     container_name: fastapi-web
@@ -17,7 +21,7 @@ services:
     volumes:
       - .:/code
     environment:
-      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432
+      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5433
     ports:
       - "8000:8000"
     depends_on:
@@ -25,7 +29,7 @@ services:
 
   pgadmin:
     container_name: pgadmin
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     environment:
       - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
       - PGADMIN_DEFAULT_PASSWORD=admin

@@ -7,6 +7,9 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /code/
 
+RUN apt-get update
+RUN apt-get install -y curl
+
 # copy poetry files
 COPY poetry.lock pyproject.toml /code/
 
@@ -19,4 +22,4 @@ RUN pip --no-cache-dir install poetry poetry-setup \
 
 COPY . /code/
 
-EXPOSE 8000
+EXPOSE 8000 5433

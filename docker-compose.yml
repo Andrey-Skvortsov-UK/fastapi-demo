@@ -8,6 +8,11 @@ services:
       - "5433" # Publishes 5433 to other containers but NOT to host machine
     ports:
       - "5433:5432"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5433"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -24,8 +29,10 @@ services:
       - DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5433
     ports:
       - "8000:8000"
+    restart: always
     depends_on:
       - db
+
 
   pgadmin:
     container_name: pgadmin

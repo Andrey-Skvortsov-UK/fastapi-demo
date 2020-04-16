@@ -58,6 +58,35 @@ in PowerShell run:
 dows-x86_64.exe" -UseBasicParsing -OutFile $Env:ProgramFiles\Docker\docker-compose.exe
 ```
 
+### Docker notes
+[Docker Compose wait for container X before starting Y](https://stackoverflow.com/questions/31746182/docker-compose-wait-for-container-x-before-starting-y)
+```
+version: "2.1"
+
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5433"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    ...
+```
+or
+```.env
+version: "3"
+
+services:
+  web:
+    build: .
+    container_name: fastapi-web
+    restart: always
+    depends_on:
+      - db
+    ...
+```
 
 ## Test API
 http://127.0.0.1:8000/docs#
